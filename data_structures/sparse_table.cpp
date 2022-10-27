@@ -137,5 +137,22 @@ int main(){
     std::cout << "Range Query: " << st2.query(2, 7) << std::endl;
     // endregion
 
+    // region test 3
+    std::vector<double> arr3(10);
+    for(int i = 0; i < 10; i++)
+        arr3[i] = i + 1.5;
+    std::cout << "Array: ";
+    for(auto i : arr3)
+        std::cout << i << " ";
+    std::cout << std::endl;
+
+    SparseTable<double> st3(arr3, [](double a, double b){return std::max(a, b);});
+    std::cout << "Sparse Table:" << std::endl;
+    st3.print();
+    std::cout << "Range Query: " << st3.query(0, 8) << std::endl;
+    std::cout << "Range Query: " << st3.query(1, 5) << std::endl;
+    std::cout << "Range Query: " << st3.query(2, 7) << std::endl;
+    // endregion
+
     return 0;
 }
