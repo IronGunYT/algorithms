@@ -3,7 +3,7 @@
  * @brief Sparse Table Data Structure
  * @details
  * Sparse Table is a data structure, that allows answering range queries.
- * It can answer most range queries in O(logn), but its true power is answering range minimum queries
+ * Operation: find maximum or minimum element in a subsection of elements in O(1)
  *
  * If any element in the array changes, the whole array is rebuilt.
  *
