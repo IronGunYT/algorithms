@@ -41,7 +41,7 @@ double ternary_search(double (*f)(double), double l, double r, double eps, bool 
 
 int main(){
 
-    // test 1
+    // region test 1
     double result = ternary_search([](double x){return x * x;}, 0, 10, 0.0001);
     std::cout << "Test 1" << std::endl;
     std::cout << "ternary_search([](double x){return x * x;}, 0, 10, 0.0001) = " << result << std::endl;
@@ -51,8 +51,9 @@ int main(){
     else
         std::cout << "Test 1 failed" << std::endl;
     std::cout << std::endl;
+    // endregion
 
-    // test 2
+    // region test 2
     double result2 = ternary_search([](double x){return -x * x;}, 0, 10, 0.0001);
     std::cout << "Test 2" << std::endl;
     std::cout << "ternary_search([](double x){return -x * x;}, 0, 10, 0.0001) = " << result2 << std::endl;
@@ -62,8 +63,9 @@ int main(){
     else
         std::cout << "Test 2 failed" << std::endl;
     std::cout << std::endl;
+    // endregion
 
-    // test 3
+    // region test 3
     double result3 = ternary_search([](double x){return x * x;}, 0, 10, 0.0001, false);
     std::cout << "Test 3" << std::endl;
     std::cout << "ternary_search([](double x){return x * x;}, 0, 10, 0.0001, false) = " << result3 << std::endl;
@@ -73,6 +75,7 @@ int main(){
     else
         std::cout << "Test 3 failed" << std::endl;
     std::cout << std::endl;
+    // endregion
 
     return 0;
 }

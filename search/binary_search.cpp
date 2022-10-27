@@ -40,7 +40,7 @@ T binary_search(std::vector<T> &arr, T val) {
 }
 
 int main(){
-    // test 1
+    // region test 1
     std::vector<int> arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     int result = binary_search(arr, 5);
     std::cout << "Test 1" << std::endl;
@@ -52,8 +52,9 @@ int main(){
     else
         std::cout << "Test 1 failed" << std::endl;
     std::cout << std::endl;
+    // endregion
 
-    // test 2
+    // region test 2
     std::vector<double> arr2 = {1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.1};
     int result2 = binary_search(arr2, 5.5);
     std::cout << "Test 2" << std::endl;
@@ -65,8 +66,9 @@ int main(){
     else
         std::cout << "Test 2 failed" << std::endl;
     std::cout << std::endl;
+    // endregion
 
-    // test 3
+    // region test 3
     std::vector<int> arr3 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     int result3 = binary_search(arr3, 11);
     std::cout << "Test 3" << std::endl;
@@ -78,5 +80,6 @@ int main(){
     else
         std::cout << "Test 3 failed" << std::endl;
     std::cout << std::endl;
+    // endregion
     return 0;
 }
