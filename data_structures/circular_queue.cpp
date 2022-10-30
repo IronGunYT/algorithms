@@ -48,6 +48,14 @@ public:
     CircularQueue() = default;
 
     /**
+     * @brief Check if queue is empty
+     * @returns true if queue is empty
+     */
+    bool is_empty(){
+        return front == nullptr || rear == nullptr;
+    }
+
+    /**
      * @brief Add element to the end of the queue
      */
     void add(T val){
