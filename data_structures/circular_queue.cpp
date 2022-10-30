@@ -75,8 +75,7 @@ public:
                 delete front;
                 front = nullptr;
                 rear = nullptr;
-            }
-            else{
+            }else{
                 Node<T> *temp = front;
                 front = front->next;
                 rear->next = front;
@@ -85,6 +84,26 @@ public:
             return val;
         }
     }
+
+    /**
+     * @brief Get and move to the end element from the front of the queue
+     * @returns value of the element
+     */
+     T move(){
+        if(front == nullptr || rear == nullptr)
+            throw std::runtime_error("Queue is empty");
+        else{
+            T val = front->data;
+            if(front != rear){
+                Node<T> *temp = front;
+                front = front->next;
+                rear->next = temp;
+                rear = temp;
+                rear->next = front;
+            }
+            return val;
+        }
+     }
 
     /**
      * @brief Traverse the queue
@@ -128,6 +147,9 @@ int main(){
     queue.add(3);
     queue.add(4);
     queue.add(5);
+    queue.traverse();
+    std::cout << "Moving element" << std::endl;
+    queue.move();
     queue.traverse();
     std::cout << "Removing element: " << queue.remove() << std::endl;
     queue.traverse();
