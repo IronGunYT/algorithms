@@ -20,21 +20,21 @@
 #include <iostream>
 
 template <typename T>
-struct Node{
+struct CircQNode{
     T data;
-    Node<T> *next;
+    CircQNode<T> *next;
 };
 template <typename T>
 class CircularQueue{
-    Node<T> *front = nullptr;
-    Node<T> *rear = nullptr;
+    CircQNode<T> *front = nullptr;
+    CircQNode<T> *rear = nullptr;
 
     /**
      * @brief Creates first node
      * @param val - value to add
      */
      void create_node(T val){
-        auto *nd = new Node<T>;
+        auto *nd = new CircQNode<T>;
         nd->data = val;
         nd->next = nullptr;
         front = nd;
@@ -62,7 +62,7 @@ public:
         if(front == nullptr || rear == nullptr)
             create_node(val);
         else{
-            auto *nd = new Node<T>;
+            auto *nd = new CircQNode<T>;
             nd->data = val;
             rear->next = nd;
             nd->next = front;
@@ -84,7 +84,7 @@ public:
                 front = nullptr;
                 rear = nullptr;
             }else{
-                Node<T> *temp = front;
+                CircQNode<T> *temp = front;
                 front = front->next;
                 rear->next = front;
                 delete temp;
@@ -103,7 +103,7 @@ public:
         else{
             T val = front->data;
             if(front != rear){
-                Node<T> *temp = front;
+                CircQNode<T> *temp = front;
                 front = front->next;
                 rear->next = temp;
                 rear = temp;
@@ -120,7 +120,7 @@ public:
         if(front == nullptr || rear == nullptr)
             throw std::runtime_error("Queue is empty");
         else{
-            Node<T> *temp = front;
+            CircQNode<T> *temp = front;
             while(temp->next != front){
                 std::cout << temp->data << " ";
                 temp = temp->next;
@@ -136,9 +136,9 @@ public:
         if(front == nullptr || rear == nullptr)
             return;
         else{
-            Node<T> *temp = front;
+            CircQNode<T> *temp = front;
             while(temp->next != front){
-                Node<T> *temp2 = temp;
+                CircQNode<T> *temp2 = temp;
                 temp = temp->next;
                 delete temp2;
             }
