@@ -111,6 +111,16 @@ public:
     }
 
     /**
+     * @brief Get and remove lead element in the heap
+     * @returns lead element in the heap
+     */
+    T pop(){
+        T res = heap[0];
+        remove(0);
+        return res;
+    }
+
+    /**
      * @brief Get size of the heap
      * @returns size of the heap
      */
