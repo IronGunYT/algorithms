@@ -21,6 +21,7 @@ template <typename T>
 class SegmentTree{
     int size;
     std::vector<T> tree;
+    T (*func)(T, T);  // function to use for range queries
 
     // region Helper Functions
 
@@ -69,7 +70,7 @@ class SegmentTree{
         int mid = (left + right) / 2;
         build(arr, get_left(node), left, mid);
         build(arr, get_right(node), mid + 1, right);
-        tree[node] = tree[get_left(node)] + tree[get_right(node)];
+        tree[node] = func(tree[get_left(node)], tree[get_right(node)]);
     }
 
     /**
@@ -91,7 +92,7 @@ class SegmentTree{
             update(get_left(node), left, mid, index, value);
         else
             update(get_right(node), mid + 1, right, index, value);
-        tree[node] = tree[get_left(node)] + tree[get_right(node)];
+        tree[node] = func(tree[get_left(node)], tree[get_right(node)]);
     }
 
     /**
@@ -109,18 +110,21 @@ class SegmentTree{
         if(query_left <= left && query_right >= right)
             return tree[node];
         int mid = (left + right) / 2;
-        return query(get_left(node), left, mid, query_left, query_right)
-             + query(get_right(node), mid + 1, right, query_left, query_right);
+        T left_query = query(get_left(node), left, mid, query_left, query_right);
+        T right_query = query(get_right(node), mid + 1, right, query_left, query_right);
+        return func(left_query, right_query);
     }
 
 public:
     /**
      * @brief Constructor
      * @param arr - array to build the tree from
+     * @param f - function to use for range queries
      */
-    explicit SegmentTree(const std::vector<T> &arr){
+    SegmentTree(const std::vector<T> &arr, T (*func)(T, T)){
         size = arr.size();
         tree.resize(4 * size);
+        this->func = func;
         build(arr, 0, 0, size - 1);
     }
 
@@ -157,25 +161,37 @@ public:
 
 int main(){
     // region test 1
+    std::cout << "Test 1" << std::endl;
     std::vector<int> arr1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    SegmentTree<int> tree1(arr1);
-    std::cout << tree1.query(0, 9) << std::endl;
+    SegmentTree<int> tree1(arr1, [](int a, int b){return a + b;});
+    std::cout << tree1.query(0, 9) << ", correct answer: " << 55 << std::endl;
     tree1.update(0, 10);
-    std::cout << tree1.query(0, 9) << std::endl;
+    std::cout << tree1.query(0, 9) << ", correct answer: " << 65 << std::endl;
     std::cout << "Tree:" << std::endl;
     std::cout << tree1 << std::endl;
     std::cout << std::endl;
     // endregion
 
     // region test 2
+    std::cout << "Test 2" << std::endl;
     std::vector<int> arr2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-    SegmentTree<int> tree2(arr2);
-    std::cout << tree2.query(0, 5) << std::endl;
+    SegmentTree<int> tree2(arr2, [](int a, int b){return a + b;});
+    std::cout << tree2.query(0, 11) << ", correct answer: " << 78 << std::endl;
     tree2.update(0, 10);
-    std::cout << tree2.query(0, 5) << std::endl;
+    std::cout << tree2.query(0, 11) << ", correct answer: " << 88 << std::endl;
     std::cout << "Tree:" << std::endl;
     std::cout << tree2 << std::endl;
     std::cout << std::endl;
     // endregion
+
+    // region test 3
+    std::cout << "Test 3" << std::endl;
+    std::vector<int> arr3 = {5, 7, 8, 1, 12, 3, 3, 3, 4, 1, 9, 7};
+    SegmentTree<int> tree3(arr3, [](int a, int b){return std::max(a, b);});
+    std::cout << tree3.query(3, 11) << ", correct answer: " << 12 << std::endl;
+    tree3.update(0, 100);
+    std::cout << tree3.query(0, 7) << ", correct answer: " << 100 << std::endl;
+    std::cout << "Tree:" << std::endl;
+    std::cout << tree3 << std::endl;
     return 0;
 }
