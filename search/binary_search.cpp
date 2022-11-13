@@ -13,6 +13,7 @@
 ****************************************************************/
 
 #include <vector>
+#include <cmath>
 #include <iostream>
 
 /****************************************************************
@@ -37,6 +38,27 @@ T binary_search(std::vector<T> &arr, T val) {
             left = mid + 1;
     }
     return -1;
+}
+
+/****************************************************************
+ * @brief Binary search on function algorithm
+ * @param func - monotonically increasing function to search in
+ * @param val - value to search
+ * @param left - left border of function
+ * @param right - right border of function
+ * @param eps - precision of search
+ * @return argument of function that is equal to val
+ ****************************************************************/
+template <typename T>
+T binary_search_function(T (*func)(T), T val, T left = 0, T right = 1e3, T eps = 1e-6){
+    while(right - left > eps){
+        T mid = left + (right - left) / 2;
+        if(func(mid) < val)
+            left = mid;
+        else
+            right = mid;
+    }
+    return (left + right) / 2;
 }
 
 int main(){
@@ -81,5 +103,34 @@ int main(){
         std::cout << "Test 3 failed" << std::endl;
     std::cout << std::endl;
     // endregion
+
+    // region test 4
+    float x = 9.;
+    auto result4 = binary_search_function<float>([](float x){return x * x;}, x, 0, x);
+    std::cout << "Test 4" << std::endl;
+    std::cout << "x = 9" << std::endl;
+    std::cout << "binary_search_function<float>([](float x){return x * x;}, x, 0, x) = " << result4 << std::endl;
+    std::cout << "correct answer = 3" << std::endl;
+    if(fabs(result4 - 3) <= 1e-6)
+        std::cout << "Test 4 passed" << std::endl;
+    else
+        std::cout << "Test 4 failed" << std::endl;
+    std::cout << std::endl;
+    // endregion
+
+    // region test 5
+    float x2 = 29.12;
+    auto result5 = binary_search_function<float>([](float x){return x*x*x;}, x2, 1, x2, 1e-4);
+    std::cout << "Test 5" << std::endl;
+    std::cout << "x2 = 9" << std::endl;
+    std::cout << "binary_search_function<float>([](float x){return x*x*x;}, x2, 1, x2, 1e-4) = " << result5 << std::endl;
+    std::cout << "correct answer = 3.0766" << std::endl;
+    if(fabs(result5 - 3.0766) <= 1e-4)
+        std::cout << "Test 5 passed" << std::endl;
+    else
+        std::cout << "Test 5 failed" << std::endl;
+    std::cout << std::endl;
+    // endregion
+
     return 0;
 }
