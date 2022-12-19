@@ -20,7 +20,7 @@
  * @param func - comparison function
  ****************************************************************/
 template <typename T>
-void bubble_sort(std::vector<T> &arr, bool (*func)(T, T)) {
+void selection_sort(std::vector<T> &arr, bool (*func)(T, T)) {
     for(auto i = arr.begin(); i != arr.end(); i++){
         auto min_el = std::min_element(i, arr.end(), func);
         std::swap(*i, *min_el);
@@ -36,7 +36,7 @@ int main(){
     for(auto i: v1)
         std::cout << i << " ";
     std::cout << std::endl;
-    bubble_sort(v1, comp);
+    selection_sort(v1, comp);
     for(auto i: v1)
         std::cout << i << " ";
     std::cout << std::endl;
@@ -44,7 +44,7 @@ int main(){
 
     // region test 2
     std::vector<int> v2;
-    bubble_sort(v2, comp);
+    selection_sort(v2, comp);
     // endregion
 
     // region test 3
@@ -52,7 +52,7 @@ int main(){
     for(auto i: v3)
         std::cout << i << " ";
     std::cout << std::endl;
-    bubble_sort(v3, comp);
+    selection_sort(v3, comp);
     for(auto i: v3)
         std::cout << i << " ";
     std::cout << std::endl;
@@ -63,7 +63,7 @@ int main(){
     for(auto i: v4)
         std::cout << i << " ";
     std::cout << std::endl;
-    bubble_sort(v4, comp);
+    selection_sort(v4, comp);
     for(auto i: v4)
         std::cout << i << " ";
     std::cout << std::endl;
